@@ -10,7 +10,14 @@
     <nav>
         <a href="/">Home</a>
     </nav>
-    <h1>More about {{ author.name }}</h1>
-    <h5>Bio:</h5>
+    <h1>{{ author.name }}'s RecipeBox</h1>
+    <h4>Bio:</h4>
     <p>{{ author.bio }}</p>
+    <h3>Recipe's List</h3>
+    <ul>
+        {% for recipe in recipes %}
+        <li><a href="/recipe/{{recipe.id}}">{{recipe}}</a></li>
+        {% endfor %}
+    </ul>
+
 </div>

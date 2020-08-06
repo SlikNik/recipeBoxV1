@@ -10,10 +10,11 @@
     <nav>
         <a href="/">Home</a>
     </nav>
-    <h1>RecipeBox</h1>
-    <h2>{{ recipe.title }}</h2>
-    <h3>{{ recipe.time_required}}</h3>
+    <h1>{{recipe}}</h1>
+    <h2>Time Required {{ recipe.time_required}}</h2>
+    <h3>Description</h3>
     <p>{{ recipe.description}}</p>
+    <h3>Instructions</h3>
     <p>{{ recipe.instructions }}</p>
-    <h5><a href="/author/{{recipe.author.name}}">{{ recipe.author }}</a></h5>
+    <h4><a href="/author/{{recipe.author}}">Author: {{ recipe.author }}</a></h4>
 </div>
