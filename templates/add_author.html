@@ -12,11 +12,10 @@
         <a href="/addauthor/">Add Author |</a>
         <a href="/addrecipe/">Add Recipe |</a>
     </nav>
-    <h1>Welcome to the RecipeBox</h1>
-    <h3>Recipe's List</h3>
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="/recipe/{{recipe.id}}">{{recipe}}</a></li>
-        {% endfor %}
-    </ul>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Submit</button>
+    </form>
+
 </div>
