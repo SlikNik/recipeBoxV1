@@ -21,10 +21,9 @@ def add_author_view(request):
     if request.method == 'POST':
         form = AddAuthorForm(request.POST)
         if form.is_valid():
-            name = form.cleaned_data['name']
-            bio = form.cleaned_data['bio']
-            print(name, bio)
             form.save()
+            return HttpRepsonseRedirect(reverse('author_view'))
+
     form = AddAuthorForm()
     return render(request, 'add_author.html', {'form': form})
 
@@ -32,13 +31,9 @@ def add_recipe_view(request):
     if request.method == 'POST':
         form = AddRecipeForm(request.POST)
         if form.is_valid():
-            title = form.cleaned_data['title']
-            author = form.cleaned_data['author']
-            description = form.cleaned_data['description']
-            time_required = form.cleaned_data['time_required']
-            instructions = form.cleaned_data['instructions']
-            print(title, author, description, time_required, instructions)
             form.save()
+            return HttpRepsonseRedirect(reverse('recipe_view'))
+
     form = AddRecipeForm()
-    return render(request, 'add_recipe.html',  {'form': form})
+    return render(request, 'add_author.html',  {'form': form})
     
