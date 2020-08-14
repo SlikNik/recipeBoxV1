@@ -21,13 +21,13 @@
         {% csrf_token %}
         <label>Title</label>
         <p>{{ form.title }}</p>
-        {% if request.user.is_staff %}
+        <!-- {% if request.user.is_staff %} -->
         <label>Author</label>
         <p>{{ form.author }}</p>
-        {% else %}
+        <!-- {% else %}
         <label>Author</label>
         <p>{{ request.user.author }}</p>
-        {% endif %}
+        {% endif %} -->
         <label>Description</label>
         <p>{{ form.description }}</p>
         <label> Time Required</label>

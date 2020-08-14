@@ -39,18 +39,23 @@ def add_author(request):
 
 @login_required
 def add_recipe(request):
-    if request.method == 'POST':
-        form = AddRecipeForm(request.POST)
-        if form.is_valid():
-            if request.user.is_staff:
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = AddRecipeForm(request.POST)
+            if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
-            else:
-                form.check_user(request)
+        form = AddRecipeForm()
+        return render(request, 'generic_form.html', {'form': form})
+    else:
+        if request.method == 'POST':
+            form = AddRecipeForm(request.POST)
+            if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
-    form = AddRecipeForm()
-    return render(request, 'add_recipe_form.html',  {'form': form})
+        form = AddRecipeForm(initial={'author': request.user.author})
+        return render(request, 'generic_form.html', {'form': form})
+   
 
 def signup_view(request):
     if request.method == 'POST':

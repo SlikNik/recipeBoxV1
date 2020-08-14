@@ -23,8 +23,5 @@ class AddRecipeForm(forms.ModelForm):
    class Meta:
         model = Recipe
         fields = ('title', 'author', 'description', 'time_required', 'instructions')    
-        
-        def check_user(self, request):
-            if not request.user.is_staff:
-                self.fields['author'] = request.user.author
+
   
