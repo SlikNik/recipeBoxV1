@@ -24,7 +24,7 @@ def recipe_detail_view(request, recipe_id):
     return render(request, 'recipe_detail.html', {'recipe': current_recipe})
 
 @login_required
-def add_author_view(request):
+def add_author(request):
     if request.user.is_staff:
         if request.method == 'POST':
             form = AddAuthorForm(request.POST)
@@ -38,7 +38,7 @@ def add_author_view(request):
 
 
 @login_required
-def add_recipe_view(request):
+def add_recipe(request):
     if request.method == 'POST':
         form = AddRecipeForm(request.POST)
         if form.is_valid():
