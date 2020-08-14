@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from recipes.models import Author, Recipe
-from recipes.forms import SignupForm, LoginForm, AddAuthorForm, AddRecipeForm, AddRecipeAdminForm
+from recipes.forms import SignupForm, LoginForm, AddAuthorForm, AddRecipeForm
 
 in_out = 'login'
 # Create your views here.
@@ -39,27 +39,18 @@ def add_author_view(request):
 
 @login_required
 def add_recipe_view(request):
-    if request.user.is_staff:
-        if request.method == 'POST':
-            form = AddAuthorAdminForm(request.POST)
-            if form.is_valid():
+    if request.method == 'POST':
+        form = AddRecipeForm(request.POST)
+        if form.is_valid():
+            if request.user.is_staff:
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
-        
-        form = AddRecipeAdminForm()
-        return render(request, 'generic_form.html',  {'form': form})
-    else:
-        if request.method == 'POST':
-            form = AddRecipeForm(request.POST)
-            if form.is_valid():
-                new_recipe=form.save(commit=False)
-                new_recipe.author = request.user.author
-                new_recipe.save()
+            else:
+                form.check_user(request)
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
-
-        form = AddRecipeForm()
-        return render(request, 'generic_form.html',  {'form': form})
+    form = AddRecipeForm()
+    return render(request, 'add_recipe_form.html',  {'form': form})
 
 def signup_view(request):
     if request.method == 'POST':

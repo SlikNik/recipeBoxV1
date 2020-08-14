@@ -16,21 +16,15 @@ class AddAuthorForm(forms.ModelForm):
     class Meta:
         model = Author
         fields = ('name', 'bio', 'user')
-
-class AddRecipeAdminForm(forms.ModelForm):
-
-   class Meta:
-        model = Recipe
-        fields = ('title', 'author', 'description', 'time_required', 'instructions')
-
-        # def __init__(self, *args, **kwargs):
-        #     author = kwargs.pop('author', None)
-        #     super(ArticleForm, self).__init__(*args, **kwargs)
-        #     if not request.user.is_staff:
-        #         del self.fields['author']
+    
 
 class AddRecipeForm(forms.ModelForm):
 
    class Meta:
         model = Recipe
-        fields = ('title', 'description', 'time_required', 'instructions')
+        fields = ('title', 'author', 'description', 'time_required', 'instructions')    
+        
+        def check_user(self, request):
+            if not request.user.is_staff:
+                self.fields['author'] = request.user.author
+  

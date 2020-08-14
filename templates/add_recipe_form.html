@@ -19,7 +19,21 @@
     </nav>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <label>Title</label>
+        <p>{{ form.title }}</p>
+        {% if request.user.is_staff %}
+        <label>Author</label>
+        <p>{{ form.author }}</p>
+        {% else %}
+        <label>Author</label>
+        <p>{{ request.user.author }}</p>
+        {% endif %}
+        <label>Description</label>
+        <p>{{ form.description }}</p>
+        <label> Time Required</label>
+        <p>{{ form.time_required }}</p>
+        <label>Instructions</label>
+        <p>{{ form.instructions }}</p> 
         <button type="submit">Submit</button>
     </form>
 
