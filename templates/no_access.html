@@ -7,15 +7,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
 
 <div class="container">
-    <nav>
-        <a href="/">Home |</a>
-        <a href="/addauthor/">Add Author |</a>
-        <a href="/addrecipe/">Add Recipe |</a>
-    </nav>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Submit</button>
-    </form>
-
+    <p>Oopps! Sorry, current user: {{ user }}, doesn't have access to this page!</p>    
+    <a href="/"> Go Home </a>
 </div>

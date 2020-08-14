@@ -9,8 +9,8 @@
 <div class="container">
     <nav>
         <a href="/">Home |</a>
-        <a href="/addauthor/">Add Author |</a>
-        <a href="/addrecipe/">Add Recipe |</a>
+        <a href="/newauthor/">Add Author |</a>
+        <a href="/newrecipe/">Add Recipe |</a>
     </nav>
     <h1>{{ recipe }}</h1>
     <h2>Time Required {{ recipe.time_required}}</h2>
@@ -19,4 +19,5 @@
     <h3>Instructions</h3>
     <p>{{ recipe.instructions }}</p>
     <h4><a href="/author/{{recipe.author}}">Author: {{ recipe.author }}</a></h4>
+    <h6>Date: {{ recipe.recipe_date}}</h6>
 </div>
