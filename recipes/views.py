@@ -32,7 +32,7 @@ def add_author(request):
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
         form = AddAuthorForm()
-        return render(request, 'generic_form.html', {'form': form})
+        return render(request, 'generic_form.html', {'form': form,  'author': 'active'})
     else:
         return render(request, 'no_access.html', {'user': request.user})
 
@@ -46,15 +46,15 @@ def add_recipe(request):
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
         form = AddRecipeForm()
-        return render(request, 'generic_form.html', {'form': form})
+        return render(request, 'generic_form.html', {'form': form, 'recipe': 'active'})
     else:
         if request.method == 'POST':
             form = AddRecipeForm(request.POST)
-            if form.is_valid():
+            if form.is_valid(): 
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
         form = AddRecipeForm(initial={'author': request.user.author})
-        return render(request, 'generic_form.html', {'form': form})
+        return render(request, 'generic_form.html', {'form': form, 'recipe': 'active'})
    
 
 def signup_view(request):
@@ -69,7 +69,7 @@ def signup_view(request):
             return HttpResponseRedirect(reverse('homepage'))
 
     form = SignupForm()
-    return render(request, 'generic_form.html',  {'form': form})
+    return render(request, 'generic_form.html',  {'form': form, 'signup': 'active'})
 
 def login_view(request):
     if request.method == "POST":
@@ -83,7 +83,7 @@ def login_view(request):
                 return HttpResponseRedirect(request.GET.get( 'next',reverse('homepage')))
       
     form = LoginForm()
-    return render(request, 'generic_form.html', {'form': form})
+    return render(request, 'generic_form.html', {'form': form, 'login': 'active'})
 
 def logout_view(request):
     logout(request)

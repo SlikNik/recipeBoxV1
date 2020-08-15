@@ -1,28 +1,67 @@
-<!-- CSS only -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
 
-<div class="container">
-    <nav>
-        <a href="/">Home |</a>
-        <a href="/newauthor/">Add Author |</a>
-        <a href="/newrecipe/">Add Recipe |</a>
-        {% if request.user.is_authenticated %}
-        <a href="/logout/">Logout |</a>
-        {% else %}
-        <a href="/login/">Login |</a>
-        <a href="/signup/">Sign Up |</a>
-        {% endif %}
-    </nav>
-    <h1>Welcome {{ request.user.author }} to the RecipeBox</h1>
-    <h3>Current Recipe List</h3>
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="/recipe/{{recipe.id}}">{{recipe}}</a></li>
-        {% endfor %}
-    </ul>
-</div>
+    <title>RecipeBox</title>
+</head>
+
+<body>
+    <div class="container" style="color: orangered;">
+        <ul class="nav nav-tabs" style="color: orangered;">
+            <li class="nav-item" >
+              <a class="nav-link active" href="/" style="color: orangered;">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/newauthor/" style="color: orangered;">Add Author</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/newrecipe/" style="color: orangered;">Add Recipe </a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/" style="color: orangered;">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/login/" style="color: orangered;">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/signup/" style="color: orangered;">Sign Up</a>
+            </li>
+            {% endif %}
+        </ul>
+        <h1>Welcome {{ request.user.author }} to the RecipeBox</h1>
+        <h3>Current Recipe List</h3>
+        <ul>
+            {% for recipe in recipes %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <a href="/recipe/{{recipe.id}}" class="card-link" style="color: orange;"><h5 class="card-title">{{ recipe.title }}</h5></a>
+                    <p class="card-text">{{ recipe.description }}</p>
+                    <a href="/recipe/{{recipe.id}}" class="card-link" style="color: orange;">View this Recipe</a>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+        integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
