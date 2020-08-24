@@ -25,7 +25,7 @@ def recipe_detail_view(request, recipe_id):
 
 @login_required
 def add_author(request):
-    if request.user.is_staff:
+    if request.custom_user.is_staff:
         if request.method == 'POST':
             form = AddAuthorForm(request.POST)
             if form.is_valid():
@@ -34,12 +34,12 @@ def add_author(request):
         form = AddAuthorForm()
         return render(request, 'generic_form.html', {'form': form,  'author': 'active'})
     else:
-        return render(request, 'no_access.html', {'user': request.user})
+        return render(request, 'no_access.html', {'user': request.custom_user})
 
 
 @login_required
 def add_recipe(request):
-    if request.user.is_staff:
+    if request.custom_user.is_staff:
         if request.method == 'POST':
             form = AddRecipeForm(request.POST)
             if form.is_valid():
@@ -51,9 +51,10 @@ def add_recipe(request):
         if request.method == 'POST':
             form = AddRecipeForm(request.POST)
             if form.is_valid(): 
+                form.non_staff()
                 form.save()
                 return HttpResponseRedirect(reverse('homepage'))
-        form = AddRecipeForm(initial={'author': request.user.author})
+        form = AddRecipeForm(initial={'author': request.custom_user.author})
         return render(request, 'generic_form.html', {'form': form, 'recipe': 'active'})
    
 
@@ -64,7 +65,7 @@ def signup_view(request):
             data = form.cleaned_data
             username = data.get('firstname').lower() + data.get('lastname').lower()
             new_user = User.objects.create_user(username=username, password=data.get('password'))
-            Author.objects.create(name=data.get('firstname').capitalize() + ' ' + data.get('lastname').capitalize(), bio=data.get('bio'), user=new_user)
+            Author.objects.create(name=data.get('firstname').capitalize() + ' ' + data.get('lastname').capitalize(), bio=data.get('bio'), custom_user=new_user)
             login(request, new_user)
             return HttpResponseRedirect(reverse('homepage'))
 
@@ -76,9 +77,9 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = authenticate(request, username=data.get('username'), password=data.get('password'))
-            if user:
-                login(request, user)
+            custom_user = authenticate(request, username=data.get('username'), password=data.get('password'))
+            if custom_user:
+                login(request, custom_user)
                 # return HttpResponseRedirect(reverse('homepage'))
                 return HttpResponseRedirect(request.GET.get( 'next',reverse('homepage')))
       

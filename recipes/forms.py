@@ -15,13 +15,17 @@ class AddAuthorForm(forms.ModelForm):
 
     class Meta:
         model = Author
-        fields = ('name', 'bio', 'user')
+        fields = ('name', 'bio', 'custom_user')
     
 
 class AddRecipeForm(forms.ModelForm):
 
    class Meta:
         model = Recipe
-        fields = ('title', 'author', 'description', 'time_required', 'instructions')    
+        fields = ('title', 'author', 'description', 'time_required', 'instructions') 
+    
+        # def non_staff(self):
+        #     self.fields['author'].editable = False   
+        #     return self.fields
 
   

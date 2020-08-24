@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,26 +8,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
-    integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
-
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <title>RecipeBox</title>
 </head>
 
 <body>
     <div class="container" style="color: orangered;">
         <ul class="nav nav-tabs" style="color: orangered;">
-            <li class="nav-item" >
-              <a class="nav-link active" href="/" style="color: orangered;">Home</a>
+            <li class="nav-item">
+                <a class="nav-link active" href="/" style="color: orangered;">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/newauthor/" style="color: orangered;">Add Author</a>
+                <a class="nav-link" href="/newauthor/" style="color: orangered;">Add Author</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/newrecipe/" style="color: orangered;">Add Recipe </a>
+                <a class="nav-link" href="/newrecipe/" style="color: orangered;">Add Recipe </a>
             </li>
-            {% if request.user.is_authenticated %}
+            {% if request.custom_user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/logout/" style="color: orangered;">Logout</a>
+                <a class="nav-link" href="/logout/" style="color: orangered;">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -37,13 +38,15 @@
             </li>
             {% endif %}
         </ul>
-        <h1>Welcome {{ request.user.author }} to the RecipeBox</h1>
+        <h1>Welcome {{ request.custom_user.author }} to the RecipeBox</h1>
         <h3>Current Recipe List</h3>
         <ul>
             {% for recipe in recipes %}
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <a href="/recipe/{{recipe.id}}" class="card-link" style="color: orange;"><h5 class="card-title">{{ recipe.title }}</h5></a>
+                    <a href="/recipe/{{recipe.id}}" class="card-link" style="color: orange;">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                    </a>
                     <p class="card-text">{{ recipe.description }}</p>
                     <a href="/recipe/{{recipe.id}}" class="card-link" style="color: orange;">View this Recipe</a>
                 </div>

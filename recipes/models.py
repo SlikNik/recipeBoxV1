@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Author(models.Model):
     name = models.CharField(max_length=80)
     bio = models.TextField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    custom_user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
